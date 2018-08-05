@@ -5,8 +5,8 @@ var vehicle = mongoose.Schema({
     fuelLevel : Number,
     battery : Number,
     location: {
-        lat : Double,
-        long : Double
+        lat : String,
+        long : String
     }
 })
 
