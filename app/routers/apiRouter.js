@@ -73,6 +73,18 @@ router.put("/battery/:id/:currentBattery",function(req,res){
     })
 })
 
+//Update location
+router.put("/location/:id/:lat/:long",function(req,res){
+    Vehicle.findByIdAndUpdate({'_id':req.params.id},{$set:{'location.lat' : req.params.lat, 'location.long' : req.params.long }},{new: true},function(err,result){
+        if(err){
+            //No content
+            res.status(204).json({error:err});
+        }else{
+            //accepted
+            res.status(202).json({error:false, message: "Update location successful"});
+        }
+    })
+})
 
 
 
