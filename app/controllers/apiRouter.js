@@ -13,6 +13,9 @@ router.post("/create",function(req,res){
             res.status(400).json({error:err});
         }else{
             if(result == null){
+                if(req.body.id != null){
+                    newVehicle._id = req.body.id;
+                }
                 newVehicle.plateNumber = req.body.plateNumber;
                 newVehicle.fuelLevel = req.body.fuelLevel;
                 newVehicle.battery = req.body.battery;
@@ -27,14 +30,13 @@ router.post("/create",function(req,res){
                         res.status(201).json({error:false,message : "Create vehicle "});
                     }
                 })
-                console.log(newVehicle);
             }
         }
     })
 })
 
 //Update attributes 
-//Update plat number 
+//Update plat number
 router.put("/plateNumber/:id/:number", function(req,res){
     Vehicle.findOneAndUpdate({'_id':req.params.id},{$set:{plateNumber: req.params.number}},{ new: true },function(err,result){
         if(err){
@@ -46,6 +48,7 @@ router.put("/plateNumber/:id/:number", function(req,res){
         }
     })
 })
+
 
 //Update fuel level 
 router.put("/fuelLevel/:id/:level",function(req,res){
@@ -87,6 +90,25 @@ router.put("/location/:id/:lat/:long",function(req,res){
 })
 
 //Search vehicle 
+//Get all Vehicle
+router.get("/getAllVehicles",function(req,res){
+    Vehicle.find({},function(err,result){
+        if(err){
+            //400 bad request
+            res.status(400).json({error:err});
+        }else{
+            if(result == null){
+                //204 No content
+                res.status(204).json({error:false,message : "No result found"});
+            }else{
+                //200 OK
+                res.status(200).json(result);
+            }
+        }
+    })
+})
+
+
 //Search by plate number
 router.get("/findVehicleByPlateNumber/:number",function(req,res){
     Vehicle.findOne({'plateNumber': req.params.number},function(err,result){
@@ -107,7 +129,7 @@ router.get("/findVehicleByPlateNumber/:number",function(req,res){
 })
 
 //Search by id
-router.get("/findVehicleById/id",function(req,res){
+router.get("/findVehicleById/:id",function(req,res){
     Vehicle.findOne({'_id':req.params.id},function(err,result){
         if(err){
             //400 Bad reqeust

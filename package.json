@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "kananek atichatviwat",
   "license": "ISC",
@@ -16,5 +16,11 @@
     "mongoose": "^5.2.6",
     "morgan": "^1.9.0",
     "nodemon": "^1.18.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.2.0",
+    "supertest": "^3.1.0"
   }
 }

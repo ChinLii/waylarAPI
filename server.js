@@ -2,11 +2,13 @@
 var express = require('express');
 var app = express();
 var config = require('./config/database.js');
+let morgan = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 //setting database
 mongoose.connect(config.url);
+
 
 //set port 
 var port = process.env.PORT || 3000;
