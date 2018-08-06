@@ -9,8 +9,8 @@ router.post("/create",function(req,res){
     var newVehicle = new Vehicle();
     Vehicle.findOne({'plateNumber':req.body.plateNumber},function(err,result){
         if(err){
-            //204 No content
-            res.status(204).json({error:err});
+            //400 Bad request
+            res.status(400).json({error:err});
         }else{
             if(result == null){
                 newVehicle.plateNumber = req.body.plateNumber;
@@ -38,8 +38,8 @@ router.post("/create",function(req,res){
 router.put("/plateNumber/:id/:number", function(req,res){
     Vehicle.findOneAndUpdate({'_id':req.params.id},{$set:{plateNumber: req.params.number}},{ new: true },function(err,result){
         if(err){
-            //No content
-            res.status(204).json({error:err});
+            //400 Bad request
+            res.status(400).json({error:err});
         }else{
             //accepted
             res.status(202).json({error: false,message:"Update plate number successful"});
@@ -51,8 +51,8 @@ router.put("/plateNumber/:id/:number", function(req,res){
 router.put("/fuelLevel/:id/:level",function(req,res){
     Vehicle.findByIdAndUpdate({'_id':req.params.id},{$set:{fuelLevel: req.params.level}},{new: true},function(err,result){
         if(err){
-            //No content
-            res.status(204).json({error:err});
+            //400 Bad request
+            res.status(400).json({error:err});
         }else{
             //accepted
             res.status(202).json({error:false, message: "Update fuel level successful"});
@@ -64,8 +64,8 @@ router.put("/fuelLevel/:id/:level",function(req,res){
 router.put("/battery/:id/:currentBattery",function(req,res){
     Vehicle.findByIdAndUpdate({'_id':req.params.id},{$set:{battery: req.params.currentBattery}},{new: true},function(err,result){
         if(err){
-            //No content
-            res.status(204).json({error:err});
+            //400 Bad request
+            res.status(400).json({error:err});
         }else{
             //accepted
             res.status(202).json({error:false, message: "Update battery successful"});
@@ -77,8 +77,8 @@ router.put("/battery/:id/:currentBattery",function(req,res){
 router.put("/location/:id/:lat/:long",function(req,res){
     Vehicle.findByIdAndUpdate({'_id':req.params.id},{$set:{'location.lat' : req.params.lat, 'location.long' : req.params.long }},{new: true},function(err,result){
         if(err){
-            //No content
-            res.status(204).json({error:err});
+            //400 Bad request
+            res.status(400).json({error:err});
         }else{
             //accepted
             res.status(202).json({error:false, message: "Update location successful"});
@@ -86,6 +86,43 @@ router.put("/location/:id/:lat/:long",function(req,res){
     })
 })
 
+//Search vehicle 
+//Search by plate number
+router.get("/findVehicleByPlateNumber/:number",function(req,res){
+    Vehicle.findOne({'plateNumber': req.params.number},function(err,result){
+        if(err){
+            //400 Bad request
+            res.status(400).json({error:err});
+        }else{
+            //accepted
+            if(result == null){
+                //204 No content
+                res.status(204).json({error:false,message:"No result found"});
+            }else{
+                //202 Accept
+                res.status(202).json(result);
+            }
+        }
+    })
+})
+
+//Search by id
+router.get("/findVehicleById/id",function(req,res){
+    Vehicle.findOne({'_id':req.params.id},function(err,result){
+        if(err){
+            //400 Bad reqeust
+            res.status(400).json({error:err});
+        }else{
+            if(result == null){
+                //204 No content
+                res.status(204).json({error:false,message:"No result found"});
+            }else{
+                //202 Accept
+                res.status(202).json(result);
+            }
+        }
+    })
+})
 
 
 module.exports = router;
