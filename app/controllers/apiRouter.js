@@ -30,6 +30,8 @@ router.post("/create",function(req,res){
                         res.status(201).json({error:false,message : "Create vehicle "});
                     }
                 })
+            }else{
+                res.status(204).json({error:false, message: "Already created"});
             }
         }
     })
