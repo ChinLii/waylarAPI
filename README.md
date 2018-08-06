@@ -27,3 +27,8 @@ It use MVC as a design pattern
     /api/findVehicleByPlateNumber/:number   GET              number             Get a vehicle by plate      The vehicle object 
                                                                                 number
     /api/destoryVehicleById/:id             DELETE           id                 Remove a vehicle by ID          -          
+
+For Running server
+    node server.js || npm start
+For testing rest api
+    npm test
