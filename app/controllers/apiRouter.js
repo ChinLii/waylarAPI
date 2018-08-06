@@ -41,8 +41,8 @@ router.put("/plateNumber/:id/:number", function(req,res){
             //400 Bad request
             res.status(400).json({error:err});
         }else{
-            //accepted
-            res.status(202).json({error: false,message:"Update plate number successful"});
+            //200 OK
+            res.status(200).json({error: false,message:"Update plate number successful"});
         }
     })
 })
@@ -54,8 +54,8 @@ router.put("/fuelLevel/:id/:level",function(req,res){
             //400 Bad request
             res.status(400).json({error:err});
         }else{
-            //accepted
-            res.status(202).json({error:false, message: "Update fuel level successful"});
+            //200 OK
+            res.status(200).json({error:false, message: "Update fuel level successful"});
         }
     })
 })
@@ -67,8 +67,8 @@ router.put("/battery/:id/:currentBattery",function(req,res){
             //400 Bad request
             res.status(400).json({error:err});
         }else{
-            //accepted
-            res.status(202).json({error:false, message: "Update battery successful"});
+            //200 OK
+            res.status(200).json({error:false, message: "Update battery successful"});
         }
     })
 })
@@ -80,8 +80,8 @@ router.put("/location/:id/:lat/:long",function(req,res){
             //400 Bad request
             res.status(400).json({error:err});
         }else{
-            //accepted
-            res.status(202).json({error:false, message: "Update location successful"});
+            //200 OK
+            res.status(200).json({error:false, message: "Update location successful"});
         }
     })
 })
@@ -99,8 +99,8 @@ router.get("/findVehicleByPlateNumber/:number",function(req,res){
                 //204 No content
                 res.status(204).json({error:false,message:"No result found"});
             }else{
-                //202 Accept
-                res.status(202).json(result);
+                //200 OK
+                res.status(200).json(result);
             }
         }
     })
@@ -117,9 +117,22 @@ router.get("/findVehicleById/id",function(req,res){
                 //204 No content
                 res.status(204).json({error:false,message:"No result found"});
             }else{
-                //202 Accept
-                res.status(202).json(result);
+                //200 OK
+                res.status(200).json(result);
             }
+        }
+    })
+})
+
+//destory vehicle
+router.delete("/destoryVehicleById/:id",function(req,res){
+    Vehicle.remove({"_id":req.params.id},function(err){
+        if(err){
+            //400 Bad request
+            res.status(400).json({error:err});
+        }else{
+            //200 OK
+            res.status(200).json({error:false,message: "Remove successfully"});
         }
     })
 })

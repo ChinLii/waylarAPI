@@ -12,8 +12,8 @@ mongoose.connect(config.url);
 var port = process.env.PORT || 3000;
 
 //import router
-var apiRouter = require('./app/routers/apiRouter');
-var pageRouter = require('./app/routers/pageRouter');
+var apiRouter = require('./app/controllers/apiRouter');
+var pageRouter = require('./app/controllers/pageRouter');
 
 // get information from html forms
 app.use(bodyParser()); 
